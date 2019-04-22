@@ -13,8 +13,8 @@ class TekstController {
         FestivalClient fc = new FestivalClient();
         byte[] wawe = fc.StringToWave(tekst)
         def failinimi = tekst
-        if (tekst.size()>5) {
-            failinimi = failinimi.substring(0,5)
+        if (tekst.size() > 5) {
+            failinimi = failinimi.substring(0, 5)
         }
         def time = new Date().getTime()
         File file = new File("./grails-app/assets/audio/" + failinimi + time + ".wav")
@@ -33,10 +33,12 @@ class TekstController {
         def list = []
         // list files from directory where generated audio files are saved
         def dir = new File('./grails-app/assets/audio')
-        dir.eachFile (FileType.FILES) { file ->
-            list << file.getName()
+        dir.eachFile(FileType.FILES) { file ->
+            if (file.name.endsWith('.wav')) {
+                list << file.getName()
+            }
         }
-        [nimekiri : list]
+        [nimekiri: list]
     }
 
 }
